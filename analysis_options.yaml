@@ -16,3 +16,5 @@ analyzer:
     - "**/*.freezed.dart"
   errors:
     todo: info
+  plugins:
+    - custom_lint

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'src/presentation/albums_app.dart';
 import 'src/presentation/config/themes/default/default_theme_set.dart';
@@ -11,5 +12,9 @@ Future<void> main() async {
       ThemeResolver(customer: 'default', themeSets: [DefaultThemeSet()])
           .resolve();
 
-  runApp(AlbumsApp(initialTheme: defaultTheme));
+  runApp(
+    ProviderScope(
+      child: AlbumsApp(initialTheme: defaultTheme),
+    ),
+  );
 }
