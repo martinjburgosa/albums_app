@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -7,7 +6,8 @@ import '../../../application/dtos/photo_dto.dart';
 import '../../../common/failure.dart';
 import '../../common/extensions/failures.dart';
 import 'controllers/home_controller.dart';
-import 'views/detail/controller/detail_controller.dart';
+import 'local_widgets/custom_list_tile.dart';
+import 'local_widgets/error_container.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -28,8 +28,9 @@ class HomeScreen extends ConsumerWidget {
             loading: () => const Center(
               child: CircularProgressIndicator(),
             ),
-            error: (f, _) => Center(
-              child: Text((f as Failure).tr),
+            error: (f, _) => ErrorContainer(
+              size: Size(screenSize.width * 0.75, screenSize.height * 0.5),
+              message: (f as Failure).message ?? (f).tr,
             ),
             data: (list) => _HomeContent(
               photos: list,
@@ -65,26 +66,34 @@ class _HomeContent extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ScrollController scrollController = ScrollController();
-    final isPortrait = screenSize.width < screenSize.height;
 
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
-        ref.read(homeControllerProvider.notifier).loadMorePhotos();
+        ref.read(homeControllerProvider.notifier).loadPhotos();
       }
     });
+
+    final width = screenSize.width;
+    final height = screenSize.height;
+    const dotZeroTwo = 0.02;
+
+    final containerSpacing = EdgeInsets.symmetric(
+      vertical: height * 0.03,
+      horizontal: width * dotZeroTwo,
+    );
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Container(
           padding: EdgeInsets.symmetric(
-            horizontal: screenSize.longestSide * 0.02,
+            horizontal: screenSize.longestSide * dotZeroTwo,
             vertical: screenSize.longestSide * 0.004,
           ),
           decoration: BoxDecoration(
             color: theme.colorScheme.secondaryContainer,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(height * dotZeroTwo),
             border: Border.all(
               color: theme.colorScheme.primary,
               width: 0.2,
@@ -97,16 +106,12 @@ class _HomeContent extends ConsumerWidget {
           ),
         ),
         Container(
-          height:
-              isPortrait ? screenSize.height * 0.6 : screenSize.height * 0.5,
-          padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-          margin: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 30,
-          ),
+          height: height * 0.6,
+          margin: containerSpacing,
+          padding: containerSpacing,
           decoration: BoxDecoration(
             color: theme.cardColor,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(16),
             border: Border.all(
               color: theme.colorScheme.primary,
               width: 0.2,
@@ -114,50 +119,21 @@ class _HomeContent extends ConsumerWidget {
           ),
           child: Scrollbar(
             thickness: 7.5,
-            radius: const Radius.circular(10),
+            radius: Radius.circular(height * dotZeroTwo),
             child: ListView.builder(
               controller: scrollController,
               itemCount: photos.length,
-              padding: const EdgeInsets.symmetric(vertical: 30),
+              padding: EdgeInsets.symmetric(
+                vertical: height * dotZeroTwo,
+                horizontal: width * dotZeroTwo,
+              ),
               itemBuilder: (context, index) {
                 final item = photos[index];
-                return Container(
-                  padding: const EdgeInsets.symmetric(vertical: 5),
-                  margin: const EdgeInsets.symmetric(vertical: 10),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.primaryContainer,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: ListTile(
-                    onTap: () => ref
-                        .read(detailControllerProvider.notifier)
-                        .updateDetailViewWithPhoto(item),
-                    style: ListTileStyle.drawer,
-                    leading: CachedNetworkImage(
-                      imageUrl: item.thumbnailUrl,
-                      imageBuilder: (context, imageProvider) =>
-                          CircleAvatar(foregroundImage: imageProvider),
-                      progressIndicatorBuilder: (context, url, progress) =>
-                          CircularProgressIndicator(
-                        value: progress.progress,
-                      ),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
-                    ),
-                    title: Text(
-                      item.title,
-                      overflow: TextOverflow.ellipsis,
-                      style: theme.textTheme.bodyMedium!.copyWith(
-                        color: theme.colorScheme.onPrimaryContainer,
-                        fontSize: screenSize.longestSide * 0.02,
-                      ),
-                    ),
-                    trailing: Text(
-                      'Ver más',
-                      style: theme.textTheme.titleSmall!
-                          .copyWith(color: theme.primaryColor),
-                    ),
-                  ),
+                return CustomListTile(
+                  theme: theme,
+                  item: item,
+                  ref: ref,
+                  screenSize: screenSize,
                 );
               },
             ),

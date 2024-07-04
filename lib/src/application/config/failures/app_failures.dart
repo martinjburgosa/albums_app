@@ -7,5 +7,5 @@ abstract class AppFailure extends Failure {
 }
 
 class TempFailure extends AppFailure {
-  const TempFailure() : super(0);
+  const TempFailure() : super(1);
 }

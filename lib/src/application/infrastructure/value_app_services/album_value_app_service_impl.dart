@@ -11,11 +11,11 @@ class AlbumValueAppServiceImpl implements AlbumValueAppService {
   final PhotosRepository photosRepository;
 
   @override
-  FutureResult<List<PhotoDto>> getAlbumPhotos(int page) async {
+  FutureResult<List<PhotoDto>?> getAlbumPhotos(int page) async {
     final result = await photosRepository.getAlbumPhotos(page);
     return result.when(
       onValue: (list) => ResultExt.value(list),
-      onFailure: (f) => ResultExt.failure(f),
+      onFailure: (failure) => ResultExt.failure(failure),
     );
   }
 }

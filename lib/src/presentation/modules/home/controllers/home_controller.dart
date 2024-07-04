@@ -15,35 +15,38 @@ class HomeController extends _$HomeController {
     final result = await albumAppService
         .getAlbumPhotos(ref.read(listPaginationControllerProvider));
 
-    return result.when(
-      onValue: (list) => list,
-      onFailure: (failure) => AsyncError(failure, StackTrace.current),
+    result.when(
+      onValue: (list) => state = AsyncData(list),
+      onFailure: (failure) => state = AsyncError(failure, StackTrace.current),
     );
+    return state.value!;
   }
 
-  Future<void> loadMorePhotos() async {
+  Future<List<PhotoDto>> loadPhotos() async {
     ref.read(listPaginationControllerProvider.notifier).increment();
-
     final albumAppService = ref.read(albumValueAppServiceProvider);
 
     final result = await albumAppService
         .getAlbumPhotos(ref.read(listPaginationControllerProvider));
 
-    return result.when(
-      onFailure: (failure) => state = AsyncError(failure, StackTrace.current),
+    result.when(
+      onFailure: (failure) =>
+          state = AsyncValue.error(failure, StackTrace.current),
       onValue: (list) {
         final currentList = state.value;
         currentList!.addAll(list);
-        state = AsyncValue.data(currentList);
+        return state = AsyncValue.data(currentList);
       },
     );
+
+    return state.value!;
   }
 }
 
 @Riverpod(keepAlive: true)
 class ListPaginationController extends _$ListPaginationController {
   @override
-  int build() => 1;
+  int build() => 0;
 
   void increment() {
     state++;

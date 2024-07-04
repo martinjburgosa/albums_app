@@ -12,11 +12,11 @@ class PhotosRepositoryImpl implements PhotosRepository {
   final AlbumPhotosDatasource remoteDataSource;
 
   @override
-  FutureResult<List<PhotoDto>> getAlbumPhotos(int page) async {
+  FutureResult<List<PhotoDto>?> getAlbumPhotos(int page) async {
     final result = await remoteDataSource.getAlbumPhotos(page);
     return result.when(
       onValue: (list) => ResultExt.value(_parseDsList(list)),
-      onFailure: (f) => ResultExt.failure(f),
+      onFailure: (failure) => ResultExt.failure(failure),
     );
   }
 

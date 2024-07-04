@@ -12,15 +12,19 @@ class AlbumPhotosDatasourceImpl implements AlbumPhotosDatasource {
   final AlbumHttpClient httpClient;
 
   @override
-  FutureResult<List<PhotoDsDto>> getAlbumPhotos(int page,
-      {int? limit = 10}) async {
+  FutureResult<List<PhotoDsDto>?> getAlbumPhotos(
+    int page, {
+    int? limit = 10,
+  }) async {
     final start = page > 0 ? page * 10 : 0;
     final url =
         '${AlbumApiPath.baseUrl}${AlbumApiPath.photos}?_start=$start&_limit=$limit';
 
-    return await httpClient.request(
-      url: url,
-      isListRequest: true,
+    final result = await httpClient.request(url: url);
+
+    return result.when(
+      onValue: (value) => ResultExt.value(value),
+      onFailure: (failure) => ResultExt.failure(failure),
     );
   }
 }

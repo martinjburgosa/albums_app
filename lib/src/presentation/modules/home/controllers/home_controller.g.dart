@@ -6,7 +6,7 @@ part of 'home_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$homeControllerHash() => r'9910818ba5744360a6405157921e055754a8b517';
+String _$homeControllerHash() => r'3a6d42c5615c0e69c19f1a0f701e1f9de1c4dcbd';
 
 /// See also [HomeController].
 @ProviderFor(HomeController)
@@ -23,7 +23,7 @@ final homeControllerProvider =
 
 typedef _$HomeController = AutoDisposeAsyncNotifier<List<PhotoDto>>;
 String _$listPaginationControllerHash() =>
-    r'e9501d676143ce453974c99c43419fb537086768';
+    r'f0b0456e09c0bfcef729791ec2891918a738cdef';
 
 /// See also [ListPaginationController].
 @ProviderFor(ListPaginationController)

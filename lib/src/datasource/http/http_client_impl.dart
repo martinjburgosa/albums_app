@@ -7,7 +7,10 @@ import '../common/failures/datasource_failures.dart';
 import 'http_client.dart';
 
 class AlbumHttpClientImpl implements AlbumHttpClient {
-  AlbumHttpClientImpl({required this.client});
+  AlbumHttpClientImpl({
+    required this.client,
+  });
+
   final http.Client client;
 
   @override
@@ -15,7 +18,6 @@ class AlbumHttpClientImpl implements AlbumHttpClient {
     required String url,
     Map<String, dynamic>? body,
     Map<String, String>? headers,
-    bool isListRequest = false,
   }) async {
     final Map<String, String> defaultHeaders =
         headers?.cast<String, String>() ?? {}
@@ -28,24 +30,19 @@ class AlbumHttpClientImpl implements AlbumHttpClient {
         Uri.parse(url),
         headers: defaultHeaders,
       );
-      return _handleRespose(response, isListRequest: isListRequest);
+      return await _handleRespose(response);
     } catch (e) {
-      return ResultExt.failure(OtherDatasourceFailure(e.toString()));
+      return ResultExt.failure(
+        OtherDatasourceFailure(e.toString()),
+      );
     }
   }
 
-  FutureResult<dynamic> _handleRespose(
-    http.Response response, {
-    bool isListRequest = false,
-  }) async {
+  FutureResult<List<PhotoDsDto>> _handleRespose(http.Response response) async {
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
       try {
-        if (isListRequest) {
-          return ResultExt.value(PhotoDsDto.fromJsonList(jsonData));
-        } else {
-          return ResultExt.value(PhotoDsDto.fromJson(jsonData));
-        }
+        return ResultExt.value(PhotoDsDto.fromJsonList(jsonData));
       } catch (e) {
         return ResultExt.failure(
           OtherDatasourceFailure(e.toString()),

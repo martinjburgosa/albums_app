@@ -1,8 +1,9 @@
+import '../../common/types.dart';
+
 abstract class AlbumHttpClient {
-  Future<dynamic> request({
+  FutureResult<dynamic> request({
     required String url,
     Map<String, dynamic>? body,
     Map<String, String>? headers,
-    bool isListRequest = false,
   });
 }
