@@ -1,13 +1,13 @@
 import 'package:json_annotation/json_annotation.dart';
 
-part 'album_dto.g.dart';
+part 'photo_dto.g.dart';
 
 @JsonSerializable()
-class AlbumDto {
-  factory AlbumDto.fromJson(Map<String, dynamic> json) =>
-      _$AlbumDtoFromJson(json);
+class PhotoDto {
+  factory PhotoDto.fromJson(Map<String, dynamic> json) =>
+      _$PhotoDtoFromJson(json);
 
-  AlbumDto({
+  PhotoDto({
     required this.albumId,
     required this.id,
     required this.title,
@@ -24,14 +24,14 @@ class AlbumDto {
 
   final String thumbnailUrl;
 
-  AlbumDto copyWith({
+  PhotoDto copyWith({
     int? albumId,
     int? id,
     String? title,
     String? url,
     String? thumbnailUrl,
   }) =>
-      AlbumDto(
+      PhotoDto(
         albumId: albumId ?? this.albumId,
         id: id ?? this.id,
         title: title ?? this.title,
@@ -39,5 +39,8 @@ class AlbumDto {
         thumbnailUrl: thumbnailUrl ?? this.thumbnailUrl,
       );
 
-  Map<String, dynamic> toJson() => _$AlbumDtoToJson(this);
+  Map<String, dynamic> toJson() => _$PhotoDtoToJson(this);
+
+  static List<PhotoDto> fromJsonList(List<dynamic> json) =>
+      json.map((e) => PhotoDto.fromJson(e)).toList();
 }

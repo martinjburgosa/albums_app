@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'album_dto.dart';
+part of 'photo_dto.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-AlbumDto _$AlbumDtoFromJson(Map<String, dynamic> json) => AlbumDto(
+PhotoDto _$PhotoDtoFromJson(Map<String, dynamic> json) => PhotoDto(
       albumId: (json['albumId'] as num).toInt(),
       id: (json['id'] as num).toInt(),
       title: json['title'] as String,
@@ -14,7 +14,7 @@ AlbumDto _$AlbumDtoFromJson(Map<String, dynamic> json) => AlbumDto(
       thumbnailUrl: json['thumbnailUrl'] as String,
     );
 
-Map<String, dynamic> _$AlbumDtoToJson(AlbumDto instance) => <String, dynamic>{
+Map<String, dynamic> _$PhotoDtoToJson(PhotoDto instance) => <String, dynamic>{
       'albumId': instance.albumId,
       'id': instance.id,
       'title': instance.title,

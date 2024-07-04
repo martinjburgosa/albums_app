@@ -1,3 +1,4 @@
+import '../../../../common/types.dart';
 import '../../../http/http_client.dart';
 import '../../common/album_api_path.dart';
 import '../../dto/photo_ds_dto.dart';
@@ -11,7 +12,8 @@ class AlbumPhotosDatasourceImpl implements AlbumPhotosDatasource {
   final AlbumHttpClient httpClient;
 
   @override
-  Future<List<PhotoDsDto>> getAlbumPhotos(int page, {int? limit = 10}) async {
+  FutureResult<List<PhotoDsDto>> getAlbumPhotos(int page,
+      {int? limit = 10}) async {
     final start = page * 10;
 
     final url =
