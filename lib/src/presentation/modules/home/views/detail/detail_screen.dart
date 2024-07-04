@@ -18,14 +18,14 @@ class DetailScreen extends ConsumerWidget {
       backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
         centerTitle: true,
+        automaticallyImplyLeading: true,
+        backgroundColor: theme.colorScheme.primary,
         iconTheme: theme.iconTheme.copyWith(color: theme.colorScheme.onPrimary),
         title: Text(
           photo!.title,
           style: theme.textTheme.titleLarge!
               .copyWith(color: theme.colorScheme.onPrimary),
         ),
-        automaticallyImplyLeading: true,
-        backgroundColor: theme.colorScheme.primary,
       ),
       body: Padding(
         padding: EdgeInsets.only(bottom: screenSize.height * 0.10),
@@ -40,7 +40,7 @@ class DetailScreen extends ConsumerWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: imageProvider,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fill,
                     ),
                   ),
                 ),
@@ -49,7 +49,10 @@ class DetailScreen extends ConsumerWidget {
                     value: progress.progress,
                   ),
                 ),
-                errorWidget: (context, url, error) => const Icon(Icons.error),
+                errorWidget: (context, url, error) => Icon(
+                  Icons.error,
+                  size: screenSize.width * 0.10,
+                ),
               ),
             ),
             Container(
