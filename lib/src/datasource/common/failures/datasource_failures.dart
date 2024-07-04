@@ -10,36 +10,24 @@ abstract class ServerFailure extends Failure {
       : super(code: code, message: message);
 }
 
-class ConnectTimeoutDatasourceFailure extends ServerFailure {
-  const ConnectTimeoutDatasourceFailure() : super(901);
+class BadRequestDatasourceFailure extends ServerFailure {
+  const BadRequestDatasourceFailure() : super(100);
 }
 
-class SendTimeoutDatasourceFailure extends ServerFailure {
-  const SendTimeoutDatasourceFailure() : super(902);
+class NotFoundDatasourceFailure extends ServerFailure {
+  const NotFoundDatasourceFailure() : super(101);
 }
 
-class ReceiveTimeoutDatasourceFailure extends ServerFailure {
-  const ReceiveTimeoutDatasourceFailure() : super(903);
-}
-
-class ResponseDatasourceFailure extends ServerFailure {
-  const ResponseDatasourceFailure() : super(904);
-}
-
-class CancelDatasourceFailure extends ServerFailure {
-  const CancelDatasourceFailure() : super(905);
-}
-
-class OtherDatasourceFailure extends ServerFailure {
-  const OtherDatasourceFailure(String message)
-      : super.withMessage(906, message);
-}
-
-class ServerDatasourceFailure extends ServerFailure {
-  const ServerDatasourceFailure() : super(907);
+class InternalServerDatasourceFailure extends ServerFailure {
+  const InternalServerDatasourceFailure() : super(102);
 }
 
 class UnauthorizedDatasourceFailure extends ServerFailure {
   const UnauthorizedDatasourceFailure(String message)
-      : super.withMessage(908, message);
+      : super.withMessage(103, message);
+}
+
+class OtherDatasourceFailure extends ServerFailure {
+  const OtherDatasourceFailure(String message)
+      : super.withMessage(104, message);
 }

@@ -1,4 +1,5 @@
 import '../../../common/types.dart';
+import '../../../datasource/album_api/dto/photo_ds_dto.dart';
 import '../../../datasource/album_api/endpoints/photos/album_photos_datasource.dart';
 import '../../dtos/photo_dto.dart';
 import 'photos_repository.dart';
@@ -19,7 +20,7 @@ class PhotosRepositoryImpl implements PhotosRepository {
     );
   }
 
-  List<PhotoDto> _parseDsList(List<dynamic> json) {
-    return json.map((e) => PhotoDto.fromJson(e)).toList();
+  List<PhotoDto> _parseDsList(List<PhotoDsDto> dsList) {
+    return dsList.map((e) => PhotoDto.fromJson(e.toJson())).toList();
   }
 }

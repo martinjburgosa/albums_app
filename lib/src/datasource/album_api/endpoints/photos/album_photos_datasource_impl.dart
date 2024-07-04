@@ -14,8 +14,7 @@ class AlbumPhotosDatasourceImpl implements AlbumPhotosDatasource {
   @override
   FutureResult<List<PhotoDsDto>> getAlbumPhotos(int page,
       {int? limit = 10}) async {
-    final start = page * 10;
-
+    final start = page > 0 ? page * 10 : 0;
     final url =
         '${AlbumApiPath.baseUrl}${AlbumApiPath.photos}?_start=$start&_limit=$limit';
 
