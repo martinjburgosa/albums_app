@@ -20,7 +20,7 @@ class HomeScreen extends ConsumerWidget {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('lbl_layout_title'.tr),
+          title: Text('lbl_home_title'.tr),
           backgroundColor: theme.colorScheme.primary,
         ),
         body: SafeArea(
@@ -100,7 +100,7 @@ class _HomeContent extends ConsumerWidget {
             ),
           ),
           child: Text(
-            'Total de elementos: ${photos.length}',
+            '${'lbl_home_total_elements'.tr} ${photos.length}',
             style: theme.textTheme.headlineSmall!
                 .copyWith(color: theme.colorScheme.onSecondaryContainer),
           ),

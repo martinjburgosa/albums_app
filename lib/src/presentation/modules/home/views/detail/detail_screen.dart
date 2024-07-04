@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 
 import 'controller/detail_controller.dart';
 
@@ -12,6 +13,7 @@ class DetailScreen extends ConsumerWidget {
     final photo = ref.watch(detailControllerProvider);
     final screenSize = MediaQuery.of(context).size;
     final theme = Theme.of(context);
+
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
@@ -26,7 +28,7 @@ class DetailScreen extends ConsumerWidget {
         backgroundColor: theme.colorScheme.primary,
       ),
       body: Padding(
-        padding: const EdgeInsets.only(bottom: 20.0),
+        padding: EdgeInsets.only(bottom: screenSize.height * 0.10),
         child: Column(
           children: [
             SizedBox(
@@ -77,12 +79,12 @@ class DetailScreen extends ConsumerWidget {
                       color: theme.colorScheme.onSecondaryContainer,
                     ),
                   ),
-                  Text('Photo ID: ${photo.id}',
+                  Text('${'lbl_detail_photo_id'.tr} ${photo.id}',
                       style: theme.textTheme.bodyMedium!.copyWith(
                         color: theme.colorScheme.onSecondaryContainer,
                       )),
                   Text(
-                    'Album ID: ${photo.albumId}',
+                    '${'lbl_detail_album_id'.tr} ${photo.albumId}',
                     style: theme.textTheme.bodyMedium!.copyWith(
                       color: theme.colorScheme.onSecondaryContainer,
                     ),

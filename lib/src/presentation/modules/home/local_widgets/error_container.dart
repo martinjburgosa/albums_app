@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ErrorContainer extends StatelessWidget {
   const ErrorContainer({
@@ -26,7 +27,7 @@ class ErrorContainer extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Text(
-              '¡Algo salió mal!',
+              'lbl_error_title'.tr,
               style: theme.textTheme.titleLarge!
                   .copyWith(color: theme.colorScheme.onErrorContainer),
             ),
