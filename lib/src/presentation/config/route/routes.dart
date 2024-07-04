@@ -1,6 +1,7 @@
 /// A class to keep the available routes of the app.
 enum Routes {
-  home('/');
+  home('/'),
+  detail('/detail');
 
   const Routes(this.value);
 
