@@ -9,7 +9,7 @@ class AlbumPhotosDatasourceImpl implements AlbumPhotosDatasource {
     required this.httpClient,
   });
 
-  final AlbumHttpClient httpClient;
+  final HttpClient httpClient;
 
   @override
   FutureResult<List<PhotoDsDto>?> getAlbumPhotos(

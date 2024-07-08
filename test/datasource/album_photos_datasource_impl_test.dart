@@ -11,7 +11,7 @@ import 'package:test/test.dart';
 
 import '../fixtures/reader.dart';
 
-class _MockAlbumHttpClient extends Mock implements AlbumHttpClient {}
+class _MockAlbumHttpClient extends Mock implements HttpClient {}
 
 void main() {
   final httpClient = _MockAlbumHttpClient();

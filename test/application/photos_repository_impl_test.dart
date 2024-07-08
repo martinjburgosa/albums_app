@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:albums_app/src/application/config/failures/app_failures.dart';
+import 'package:albums_app/src/application/infrastructure/repositories/photos_repository.dart';
+import 'package:albums_app/src/application/infrastructure/repositories/photos_repository_impl.dart';
 import 'package:albums_app/src/common/types.dart';
 import 'package:albums_app/src/datasource/album_api/dto/photo_ds_dto.dart';
 import 'package:mocktail/mocktail.dart';
@@ -14,9 +16,11 @@ class _MockAlbumPhotosDatasource extends Mock
 
 void main() {
   late AlbumPhotosDatasource datasource;
+  late PhotosRepository repository;
 
   setUp(() {
     datasource = _MockAlbumPhotosDatasource();
+    repository = PhotosRepositoryImpl(remoteDataSource: datasource);
   });
 
   group('PhotosRepository', () {
@@ -48,7 +52,7 @@ void main() {
       when(() => datasource.getAlbumPhotos(any()))
           .thenAnswer((_) async => ResultExt.failure(const TempFailure()));
       // Act
-      final result = await datasource.getAlbumPhotos(0);
+      final result = await repository.getAlbumPhotos(0);
 
       result.when(
         onValue: (photos) {

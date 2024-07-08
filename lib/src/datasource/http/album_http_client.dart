@@ -6,15 +6,15 @@ import '../album_api/dto/photo_ds_dto.dart';
 import '../common/failures/datasource_failures.dart';
 import 'http_client.dart';
 
-class AlbumHttpClientImpl implements AlbumHttpClient {
-  AlbumHttpClientImpl({
+class AlbumHttpClient implements HttpClient {
+  AlbumHttpClient({
     required this.client,
   });
 
   final http.Client client;
 
   @override
-  FutureResult<dynamic> request({
+  FutureResult<List<PhotoDsDto>> request({
     required String url,
     Map<String, dynamic>? body,
     Map<String, String>? headers,

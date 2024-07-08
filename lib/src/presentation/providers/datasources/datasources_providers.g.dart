@@ -20,23 +20,22 @@ final clientProvider = AutoDisposeProvider<Client>.internal(
 );
 
 typedef ClientRef = AutoDisposeProviderRef<Client>;
-String _$albumHttpClientHash() => r'7687060a49a106ca0a9ab97f4636e7ae79fa17a8';
+String _$httpClientHash() => r'd76247e141076eabc4d98cc9f784c76a5c269e4f';
 
-/// See also [albumHttpClient].
-@ProviderFor(albumHttpClient)
-final albumHttpClientProvider = AutoDisposeProvider<AlbumHttpClient>.internal(
-  albumHttpClient,
-  name: r'albumHttpClientProvider',
-  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
-      ? null
-      : _$albumHttpClientHash,
+/// See also [httpClient].
+@ProviderFor(httpClient)
+final httpClientProvider = AutoDisposeProvider<HttpClient>.internal(
+  httpClient,
+  name: r'httpClientProvider',
+  debugGetCreateSourceHash:
+      const bool.fromEnvironment('dart.vm.product') ? null : _$httpClientHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef AlbumHttpClientRef = AutoDisposeProviderRef<AlbumHttpClient>;
+typedef HttpClientRef = AutoDisposeProviderRef<HttpClient>;
 String _$albumPhotosDatasourceHash() =>
-    r'8aed076404b1105ddf7f2bb5a3ebef6818e95e4e';
+    r'8f44ee9f5930f688a9b931d279f3dbeff6d5d5ce';
 
 /// See also [albumPhotosDatasource].
 @ProviderFor(albumPhotosDatasource)
